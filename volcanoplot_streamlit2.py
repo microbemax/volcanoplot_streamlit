@@ -41,17 +41,17 @@ if uploaded_file is not None:
     df = pd.read_excel(uploaded_file, index_col=0)
 
     # User inputs for column names and plot title
-    pvalue_col = st.selectbox('Select p-value column', df.columns)
-    log2foldchange_col = st.selectbox('Select log2 fold change column', df.columns)
-    plot_title = st.text_input('Enter title for the plot', 'My Volcano Plot')
+    pvalue_col = st.sidebar.selectbox('Select p-value column', df.columns)
+    log2foldchange_col = st.sidebar.selectbox('Select log2 fold change column', df.columns)
+    plot_title = st.sidebar.text_input('Enter title for the plot', 'My Volcano Plot')
 
     # Sliders for dot size, alpha, and annotation font size
-    dot_size = st.slider('Dot size', min_value=1, max_value=100, value=20)
-    alpha = st.slider('Dot transparency (alpha)', min_value=0.1, max_value=1.0, value=0.5, step=0.1)
-    annotation_fontsize = st.slider('Annotation Font Size for Top Genes', min_value=4, max_value=20, value=7)
+    dot_size = st.sidebar.slider('Dot size', min_value=1, max_value=100, value=20)
+    alpha = st.sidebar.slider('Dot transparency (alpha)', min_value=0.1, max_value=1.0, value=0.5, step=0.1)
+    annotation_fontsize = st.sidebar.slider('Annotation Font Size for Top Genes', min_value=4, max_value=20, value=7)
 
     # Number of top genes to highlight
-    top_n = st.slider('Number of top genes to highlight', min_value=1, max_value=50, value=20)
+    top_n = st.sidebar.slider('Number of top genes to highlight', min_value=1, max_value=50, value=20)
 
     if st.button('Generate Volcano Plot'):
         create_volcano_plot(df, pvalue_col, log2foldchange_col, top_n, dot_size, alpha, plot_title, annotation_fontsize)
