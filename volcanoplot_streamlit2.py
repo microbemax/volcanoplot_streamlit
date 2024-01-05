@@ -35,7 +35,7 @@ def create_volcano_plot(df, pvalue_col, log2foldchange_col, top_n, dot_size, alp
 st.title('Volcano Plot Generator')
 
 # File upload
-uploaded_file = st.file_uploader("Choose a file")
+uploaded_file = st.sidebar.file_uploader("Choose a file")
 
 if uploaded_file is not None:
     df = pd.read_excel(uploaded_file, index_col=0)
@@ -53,13 +53,13 @@ if uploaded_file is not None:
     # Number of top genes to highlight
     top_n = st.sidebar.slider('Number of top genes to highlight', min_value=1, max_value=50, value=20)
 
-    if st.button('Generate Volcano Plot'):
+    if st.sidebar.button('Generate Volcano Plot'):
         create_volcano_plot(df, pvalue_col, log2foldchange_col, top_n, dot_size, alpha, plot_title, annotation_fontsize)
 
     # Option to save the plot
-    save_fig = st.checkbox('Save plot as a file')
+    save_fig = st.sidebar.checkbox('Save plot as a file')
     if save_fig:
-        save_path = st.text_input('Enter a file path to save the plot', 'volcano_plot.png')
-        if st.button('Save Plot'):
+        save_path = st.sidebar.text_input('Enter a file path to save the plot', 'volcano_plot.png')
+        if st.sidebar.button('Save Plot'):
             create_volcano_plot(df, pvalue_col, log2foldchange_col, top_n, dot_size, alpha, plot_title, annotation_fontsize, save_path)
             st.success(f'Plot saved as {save_path}')
